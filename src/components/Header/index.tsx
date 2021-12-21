@@ -1,16 +1,13 @@
-import { Flex, IconButton, Icon, Grid, Image } from '@chakra-ui/react';
-
-// import Image from 'next/image';
+import { Flex, Icon, Grid, Image, Link } from '@chakra-ui/react';
+import { useRouter } from 'next/dist/client/router';
 
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 
-import WordTripLogo from '../../assets/world-trip_logo.svg';
+const Header = () => {
+  const { asPath } = useRouter();
 
-interface HeaderProps {
-  goBackPath?: string;
-}
+  const isContinent = asPath.includes('/continent');
 
-const Header = ({ goBackPath }: HeaderProps) => {
   return (
     <Flex
       bg="white"
@@ -31,6 +28,14 @@ const Header = ({ goBackPath }: HeaderProps) => {
         justifyContent="center"
         templateColumns="repeat(3, 1fr)"
       >
+        {isContinent && (
+          <Link href="/" mt="6" justifySelf="start">
+            <a>
+              <Icon as={MdOutlineArrowBackIosNew} fontSize={[20, 40]} />
+            </a>
+          </Link>
+        )}
+
         <Image
           w={['81px', '184px']}
           mt="6"
@@ -40,20 +45,6 @@ const Header = ({ goBackPath }: HeaderProps) => {
           gridColumn={2}
         />
       </Grid>
-
-      {/*TO DO corrigir header*/}
-      {/* <Flex> */}
-      {/* {goBackPath && ( */}
-      {/* <IconButton
-        aria-label="Go back home"
-        fontSize="24px"
-        variant="unstyled"
-        icon={<Icon as={MdOutlineArrowBackIosNew} />}
-        position="relative"
-      /> */}
-      {/* )} */}
-      {/* </Flex> */}
-      <Flex></Flex>
     </Flex>
   );
 };
